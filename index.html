@@ -14,187 +14,58 @@
 
 <style>
 /* ================= GLOBAL ================= */
-body {
-  margin: 0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont,
-               "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  color: #222;
-}
+body { margin:0; font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color:#222; }
 
 /* Background banner */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    linear-gradient(rgba(255,255,255,0.80),
-                    rgba(255,255,255,0.80)),
-    url("assets/banner.jpg") center / cover no-repeat;
-  z-index: -2;
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background: linear-gradient(rgba(255,255,255,0.90), rgba(255,255,255,0.90)), url("assets/banner.jpg") center/cover no-repeat;
+  z-index:-2;
 }
 
-/* ================= LAYOUT ================= */
-.wrapper {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  max-width: 1200px;
-  margin: 70px auto;
-  padding: 0 24px;
-  gap: 60px;
-}
+/* LAYOUT */
+.wrapper { display:grid; grid-template-columns:260px 1fr; max-width:1200px; margin:70px auto; padding:0 24px; gap:60px; }
 
-/* ================= SIDEBAR ================= */
-.sidebar {
-  position: sticky;
-  top: 40px;
-  background: transparent;
-  padding: 10px 0;
-}
+/* SIDEBAR */
+.sidebar { position:sticky; top:40px; padding:10px 0; }
+.avatar{ width:160px; height:160px; border-radius:50%; object-fit:cover; margin-bottom:18px; border:2px solid #eee; }
+.sidebar h1{ font-family:Georgia, "Times New Roman", serif; font-size:1.6em; margin:0 0 6px; }
+.sidebar .role{ font-size:.95em; color:#555; margin-bottom:16px; line-height:1.4; }
+.sidebar ul{ list-style:none; padding:0; margin:0; }
+.sidebar li{ margin-bottom:8px; font-size:.9em; }
+.sidebar a{ color:#1f4ed8; text-decoration:none; }
+.sidebar a:hover{ text-decoration:underline; }
 
-.avatar {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 18px;
-  border: 2px solid #eee;
-}
+/* MAIN */
+main { background:rgba(255,255,255,0.96); padding:40px 52px; border-radius:6px; }
 
-.sidebar h1 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.6em;
-  margin: 0 0 6px 0;
-}
+/* NAV */
+nav { border-bottom:1px solid #ddd; margin-bottom:36px; padding-bottom:10px; }
+nav a{ margin-right:22px; font-family:Georgia, "Times New Roman", serif; font-size:.95em; color:#333; text-decoration:none; cursor:pointer; }
+nav a.active{ font-weight:600; border-bottom:2px solid #333; padding-bottom:2px; }
 
-.sidebar .role {
-  font-size: 0.95em;
-  color: #555;
-  margin-bottom: 16px;
-  line-height: 1.4;
-}
+/* CONTENT */
+section{ display:none; max-width:780px; }
+section.active{ display:block; }
+h2{ font-family:Georgia, "Times New Roman", serif; font-size:1.45em; margin-bottom:16px; }
+h3{ font-family:Georgia, "Times New Roman", serif; margin-top:26px; margin-bottom:6px; }
+p{ line-height:1.65; }
+.meta{ font-style:italic; color:#555; font-size:.95em; margin-bottom:8px; }
+ul li{ margin-bottom:6px; }
+footer{ margin-top:80px; font-size:.85em; color:#777; }
 
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+/* GALLERY */
+.gallery{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:22px; margin-top:30px; align-items:start; }
+.gallery img{ width:100%; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,.12); }
+.gallery figcaption{ margin-top:8px; font-size:.85em; color:#555; line-height:1.35; }
 
-.sidebar li {
-  margin-bottom: 8px;
-  font-size: 0.9em;
-}
-
-.sidebar a {
-  color: #1f4ed8;
-  text-decoration: none;
-}
-
-.sidebar a:hover {
-  text-decoration: underline;
-}
-
-/* ================= MAIN ================= */
-main {
-  background: rgba(255,255,255,0.96);
-  padding: 40px 52px;
-  border-radius: 6px;
-}
-
-/* ================= NAV ================= */
-nav {
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 36px;
-  padding-bottom: 10px;
-}
-
-nav a {
-  margin-right: 22px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.95em;
-  color: #333;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-nav a.active {
-  font-weight: 600;
-  border-bottom: 2px solid #333;
-  padding-bottom: 2px;
-}
-
-/* ================= CONTENT ================= */
-section {
-  display: none;
-  max-width: 780px;
-}
-
-section.active {
-  display: block;
-}
-
-h2 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.45em;
-  margin-bottom: 16px;
-}
-
-h3 {
-  font-family: Georgia, "Times New Roman", serif;
-  margin-top: 26px;
-  margin-bottom: 6px;
-}
-
-p {
-  line-height: 1.65;
-}
-
-.meta {
-  font-style: italic;
-  color: #555;
-  font-size: 0.95em;
-  margin-bottom: 8px;
-}
-
-ul li {
-  margin-bottom: 6px;
-}
-
-footer {
-  margin-top: 80px;
-  font-size: 0.85em;
-  color: #777;
-}
-
-/* ===== IMAGE GALLERY (optional) ===== */
-.gallery {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 22px;
-  margin-top: 30px;
-  align-items: start;
-}
-
-.gallery figure { margin: 0; text-align: center; }
-
-.gallery img {
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-}
-
-.gallery figcaption {
-  margin-top: 8px;
-  font-size: 0.85em;
-  color: #555;
-  line-height: 1.35;
-}
-
-/* Mobile-friendly */
-@media (max-width: 900px) {
-  .gallery { grid-template-columns: 1fr; }
-  .avatar { width: 120px; height: 120px; }
-  .wrapper { grid-template-columns: 1fr; padding: 18px; gap: 24px; margin: 30px auto; }
-  main { padding: 24px; }
+/* Responsive */
+@media (max-width:900px){
+  .gallery{ grid-template-columns:1fr; }
+  .avatar{ width:120px; height:120px; }
+  .wrapper{ grid-template-columns:1fr; padding:18px; gap:24px; margin:30px auto; }
+  main{ padding:24px; }
 }
 </style>
 </head>
@@ -202,246 +73,26 @@ footer {
 <body>
 <div class="wrapper">
 
-  <!-- ========== SIDEBAR ========== -->
+  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <img src="assets/profile.jpg" alt="Dheeraj Kumar Singh" class="avatar" id="profile-img">
-
+    <img id="profile-img" src="assets/profile.jpg" alt="Dheeraj Kumar Singh" class="avatar">
     <h1>Dheeraj Kumar Singh</h1>
-
     <div class="role">
-      Ph.D. Candidate — Applied Mathematics and Economics (Department of Economics, University of Oxford)
+      Ph.D. Candidate — Applied Mathematics & Economics<br>
+      Department of Economics, University of Oxford
     </div>
 
     <ul>
       <li>📍 Oxford, UK</li>
       <li>📧 <a href="mailto:dheeraj.singh@economics.ox.ac.uk">dheeraj.singh@economics.ox.ac.uk</a></li>
       <li>☎ <a href="tel:+447534581605">+44 7534 581605</a></li>
-      <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Dheeraj Kumar Singh</title>
-
-<!-- FAVICON: DS white on green circle -->
-<link rel="icon" href="data:image/svg+xml,
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-<circle cx='50' cy='50' r='50' fill='%231f7a4f'/>
-<text x='50%' y='58%' text-anchor='middle' fill='white' font-size='38' font-family='Georgia'>DS</text>
-</svg>">
-
-<style>
-/* ================= GLOBAL ================= */
-body {
-  margin: 0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont,
-               "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  color: #222;
-}
-
-/* Background banner */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    linear-gradient(rgba(255,255,255,0.90),
-                    rgba(255,255,255,0.90)),
-    url("assets/banner.jpg") center / cover no-repeat;
-  z-index: -2;
-}
-
-/* ================= LAYOUT ================= */
-.wrapper {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  max-width: 1200px;
-  margin: 70px auto;
-  padding: 0 24px;
-  gap: 60px;
-}
-
-/* ================= SIDEBAR ================= */
-.sidebar {
-  position: sticky;
-  top: 40px;
-  background: transparent;
-  padding: 10px 0;
-}
-
-.avatar {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 18px;
-  border: 2px solid #eee;
-}
-
-.sidebar h1 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.6em;
-  margin: 0 0 6px 0;
-}
-
-.sidebar .role {
-  font-size: 0.95em;
-  color: #555;
-  margin-bottom: 16px;
-  line-height: 1.4;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar li {
-  margin-bottom: 8px;
-  font-size: 0.9em;
-}
-
-.sidebar a {
-  color: #1f4ed8;
-  text-decoration: none;
-}
-
-.sidebar a:hover {
-  text-decoration: underline;
-}
-
-/* ================= MAIN ================= */
-main {
-  background: rgba(255,255,255,0.96);
-  padding: 40px 52px;
-  border-radius: 6px;
-}
-
-/* ================= NAV ================= */
-nav {
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 36px;
-  padding-bottom: 10px;
-}
-
-nav a {
-  margin-right: 22px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.95em;
-  color: #333;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-nav a.active {
-  font-weight: 600;
-  border-bottom: 2px solid #333;
-  padding-bottom: 2px;
-}
-
-/* ================= CONTENT ================= */
-section {
-  display: none;
-  max-width: 780px;
-}
-
-section.active {
-  display: block;
-}
-
-h2 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.45em;
-  margin-bottom: 16px;
-}
-
-h3 {
-  font-family: Georgia, "Times New Roman", serif;
-  margin-top: 26px;
-  margin-bottom: 6px;
-}
-
-p {
-  line-height: 1.65;
-}
-
-.meta {
-  font-style: italic;
-  color: #555;
-  font-size: 0.95em;
-  margin-bottom: 8px;
-}
-
-ul li {
-  margin-bottom: 6px;
-}
-
-footer {
-  margin-top: 80px;
-  font-size: 0.85em;
-  color: #777;
-}
-
-/* ===== IMAGE GALLERY (optional) ===== */
-.gallery {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 22px;
-  margin-top: 30px;
-  align-items: start;
-}
-
-.gallery figure { margin: 0; text-align: center; }
-
-.gallery img {
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-}
-
-.gallery figcaption {
-  margin-top: 8px;
-  font-size: 0.85em;
-  color: #555;
-  line-height: 1.35;
-}
-
-/* Mobile-friendly */
-@media (max-width: 900px) {
-  .gallery { grid-template-columns: 1fr; }
-  .avatar { width: 120px; height: 120px; }
-  .wrapper { grid-template-columns: 1fr; padding: 18px; gap: 24px; margin: 30px auto; }
-  main { padding: 24px; }
-}
-</style>
-</head>
-
-<body>
-<div class="wrapper">
-
-  <!-- ========== SIDEBAR ========== -->
-  <aside class="sidebar">
-    <img src="assets/profile.jpg" alt="Dheeraj Kumar Singh" class="avatar" id="profile-img">
-
-    <h1>Dheeraj Kumar Singh</h1>
-
-    <div class="role">
-      Ph.D. Candidate — Management Science & Information Technology<br>
-      Massachusetts Institute of Technology (Sloan)
-    </div>
-
-    <ul>
-      <li>📍 Cambridge, MA (or Oxford/UK as applicable)</li>
-      <li>📧 <a href="mailto:dheeraj.singh@economics.ox.ac.uk">dheeraj.singh@economics.ox.ac.uk</a></li>
-      <li>☎ <a href="tel:+447534581605">+44 7534 581605</a></li>
       <li>🔗 <a href="https://github.com/realdksingh" target="_blank" rel="noopener">GitHub: realdksingh</a></li>
-      <li>🔗 <a href="https://www.linkedin.com/in/dk-singh-0a18a9383/" target="_blank" rel="noopener">LinkedIn: realdksingh</a></li>
+      <li>🔗 <a href="https://www.linkedin.com/in/dk-singh-0a18a9383/" target="_blank" rel="noopener">LinkedIn</a></li>
       <li>📄 <a href="My_CV__Tentative___Copy_.pdf" target="_blank" rel="noopener">CV (PDF)</a></li>
     </ul>
   </aside>
 
-  <!-- ========== MAIN ========== -->
+  <!-- MAIN -->
   <main>
     <nav>
       <a onclick="showTab('about', this)" class="active">About</a>
@@ -456,21 +107,15 @@ footer {
 
     <section id="about" class="active">
       <h2>About</h2>
-      <p>
-        I am a researcher working at the intersection of AI, information systems, and market design.
-        My work explores how AI can be used to better understand human decision-making and how economic
-        and information tools can improve market outcomes as AI systems act on behalf of people.
-      </p>
+      <p>I am a researcher working at the intersection of AI, information systems, and market design. My work explores how AI can be used to better understand human decision-making and how economic and information tools can improve market outcomes as AI systems act on behalf of people.</p>
       <p class="meta">Research supported in part by Emergent Ventures and Schmidt Sciences.</p>
     </section>
 
     <section id="research">
       <h2>Research interests</h2>
       <p class="muted">AI Behavioral Science · Market Design · Behavioral & Experimental Economics</p>
-
       <h3>Summary</h3>
       <p>My research focuses on leveraging AI and economics to study strategic behaviour, information design, and market outcomes.</p>
-
       <h3>Selected roles</h3>
       <ul>
         <li>Research Assistant — Federal Reserve Bank of Chicago (Oct 2021 – Sept 2022)</li>
@@ -480,10 +125,8 @@ footer {
 
     <section id="teaching">
       <h2>Teaching & academic support</h2>
-
       <h3>College Tutor — University of Oxford</h3>
       <p class="meta">Core Microeconomics; Economics of Industry — tutorials and problem sets</p>
-
       <h3>Grader / TA</h3>
       <ul>
         <li>Grader — Core Microeconomics (MT 2024), Core Macroeconomics (HT 2025)</li>
@@ -496,50 +139,29 @@ footer {
       <p class="meta">Use this section to document talks, committee roles and events</p>
       <p>Details, event links, minutes or photos can be included here.</p>
 
-      <div class="gallery">
-        <figure>
-          <img src="assets/Policy.jpg" alt="Policy image">
-          <figcaption>Policy engagement (example)</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/logo.jpg" alt="Logo">
-          <figcaption>Group logo</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/Talk.jpg" alt="Talk">
-          <figcaption>Talks and workshops</figcaption>
-        </figure>
+      <div class="gallery" aria-hidden="false">
+        <figure><img src="assets/Policy.jpg" alt="Policy image"><figcaption>Policy engagement (example)</figcaption></figure>
+        <figure><img src="assets/logo.jpg" alt="Logo"><figcaption>Group logo</figcaption></figure>
+        <figure><img src="assets/Talk.jpg" alt="Talk"><figcaption>Talks and workshops</figcaption></figure>
       </div>
     </section>
 
     <section id="publications">
       <h2>Publications & writing</h2>
-
       <h3>Selected work</h3>
-      <ul>
-        <li><em>Working paper / article title</em> — short note. <a href="#">PDF</a></li>
-      </ul>
-
+      <ul><li><em>Working paper / article title</em> — short note. <a href="#">PDF</a></li></ul>
       <h3>Policy reports & commentary</h3>
-      <ul>
-        <li>Policy report / brief — organisation (year)</li>
-      </ul>
+      <ul><li>Policy report / brief — organisation (year)</li></ul>
     </section>
 
     <section id="awards">
       <h2>Awards & honours</h2>
-      <ul>
-        <li>OUBEP Scholarship / School of Social Science Studentship (examples)</li>
-        <li>Stewart Research Award — Best Honors Thesis (example)</li>
-      </ul>
+      <ul><li>OUBEP Scholarship / School of Social Science Studentship (examples)</li><li>Stewart Research Award — Best Honors Thesis (example)</li></ul>
     </section>
 
     <section id="skills">
       <h2>Skills & interests</h2>
-      <ul>
-        <li><strong>Methods:</strong> Python, R, Econometrics, Experimental Design</li>
-        <li><strong>Interests:</strong> Market design, behavioural experiments, AI + economics</li>
-      </ul>
+      <ul><li><strong>Methods:</strong> Python, R, Econometrics, Experimental Design</li><li><strong>Interests:</strong> Market design, behavioural experiments, AI + economics</li></ul>
     </section>
 
     <section id="contact">
@@ -556,159 +178,12 @@ footer {
 <script>
 /* Simple tab switcher */
 function showTab(id, el) {
-  // remove active from nav links
   document.querySelectorAll("nav a").forEach(a => a.classList.remove("active"));
-  // hide all sections
   document.querySelectorAll("main section").forEach(s => s.classList.remove("active"));
-  // activate requested
   const sec = document.getElementById(id);
   if (sec) sec.classList.add("active");
   if (el) el.classList.add("active");
-  // scroll into view on small screens
-  sec && sec.scrollIntoView({behavior: 'smooth', block: 'start'});
-}
-
-/* Image fallback if assets/profile.jpg missing */
-const pimg = document.getElementById('profile-img');
-pimg.addEventListener('error', () => {
-  pimg.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="54%" font-family="Arial" font-size="18" text-anchor="middle" fill="#999">Profile image</text></svg>'
-  );
-  console.warn('Profile image not found at assets/profile.jpg — upload and name it exactly assets/profile.jpg (case-sensitive).');
-});
-</script>
-</body>
-</html>
-
-      <li>📄 <a href="My_CV__Tentative___Copy_.pdf" target="_blank" rel="noopener">CV (PDF)</a></li>
-    </ul>
-  </aside>
-
-  <!-- ========== MAIN ========== -->
-  <main>
-    <nav>
-      <a onclick="showTab('about', this)" class="active">About</a>
-      <a onclick="showTab('research', this)">Research</a>
-      <a onclick="showTab('teaching', this)">Teaching</a>
-      <a onclick="showTab('oxford', this)">The Oxford Union</a>
-      <a onclick="showTab('publications', this)">Publications</a>
-      <a onclick="showTab('awards', this)">Awards</a>
-      <a onclick="showTab('skills', this)">Skills</a>
-      <a onclick="showTab('contact', this)">Contact</a>
-    </nav>
-
-    <section id="about" class="active">
-      <h2>About</h2>
-      <p>
-        I am a researcher working at the intersection of AI, information systems, and market design.
-        My work explores how AI can be used to better understand human decision-making and how economic
-        and information tools can improve market outcomes as AI systems act on behalf of people.
-      </p>
-      <p class="meta">Research supported in part by Emergent Ventures and Schmidt Sciences.</p>
-    </section>
-
-    <section id="research">
-      <h2>Research interests</h2>
-      <p class="muted">AI Behavioral Science · Market Design · Behavioral & Experimental Economics</p>
-
-      <h3>Summary</h3>
-      <p>My research focuses on leveraging AI and economics to study strategic behaviour, information design, and market outcomes.</p>
-
-      <h3>Selected roles</h3>
-      <ul>
-        <li>Research Assistant — Federal Reserve Bank of Chicago (Oct 2021 – Sept 2022)</li>
-        <li>Economic Affairs Intern — United Nations DESA (May 2018 – Dec 2018)</li>
-      </ul>
-    </section>
-
-    <section id="teaching">
-      <h2>Teaching & academic support</h2>
-
-      <h3>College Tutor — University of Oxford</h3>
-      <p class="meta">Core Microeconomics; Economics of Industry — tutorials and problem sets</p>
-
-      <h3>Grader / TA</h3>
-      <ul>
-        <li>Grader — Core Microeconomics (MT 2024), Core Macroeconomics (HT 2025)</li>
-        <li>Graduate TA — Imperial College London, Computational Linear Algebra (2021)</li>
-      </ul>
-    </section>
-
-    <section id="oxford">
-      <h2>The Oxford Union</h2>
-      <p class="meta">Use this section to document talks, committee roles and events</p>
-      <p>Details, event links, minutes or photos can be included here.</p>
-
-      <div class="gallery">
-        <figure>
-          <img src="assets/Policy.jpg" alt="Policy image">
-          <figcaption>Policy engagement (example)</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/logo.jpg" alt="Logo">
-          <figcaption>Group logo</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/Talk.jpg" alt="Talk">
-          <figcaption>Talks and workshops</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section id="publications">
-      <h2>Publications & writing</h2>
-
-      <h3>Selected work</h3>
-      <ul>
-        <li><em>Working paper / article title</em> — short note. <a href="#">PDF</a></li>
-      </ul>
-
-      <h3>Policy reports & commentary</h3>
-      <ul>
-        <li>Policy report / brief — organisation (year)</li>
-      </ul>
-    </section>
-
-    <section id="awards">
-      <h2>Awards & honours</h2>
-      <ul>
-        <li>OUBEP Scholarship / School of Social Science Studentship (examples)</li>
-        <li>Stewart Research Award — Best Honors Thesis (example)</li>
-      </ul>
-    </section>
-
-    <section id="skills">
-      <h2>Skills & interests</h2>
-      <ul>
-        <li><strong>Methods:</strong> Python, R, Econometrics, Experimental Design</li>
-        <li><strong>Interests:</strong> Market design, behavioural experiments, AI + economics</li>
-      </ul>
-    </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
-      <p><strong>Email:</strong> <a href="mailto:dheeraj.singh@economics.ox.ac.uk">dheeraj.singh@economics.ox.ac.uk</a></p>
-      <p><strong>Phone:</strong> <a href="tel:+447534581605">+44 7534 581605</a></p>
-      <p><strong>CV:</strong> <a href="My_CV__Tentative___Copy_.pdf" target="_blank" rel="noopener">Download CV (PDF)</a></p>
-    </section>
-
-    <footer>© Dheeraj Kumar Singh</footer>
-  </main>
-</div>
-
-<script>
-/* Simple tab switcher */
-function showTab(id, el) {
-  // remove active from nav links
-  document.querySelectorAll("nav a").forEach(a => a.classList.remove("active"));
-  // hide all sections
-  document.querySelectorAll("main section").forEach(s => s.classList.remove("active"));
-  // activate requested
-  const sec = document.getElementById(id);
-  if (sec) sec.classList.add("active");
-  if (el) el.classList.add("active");
-  // scroll into view on small screens
-  sec && sec.scrollIntoView({behavior: 'smooth', block: 'start'});
+  sec && sec.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 /* Image fallback if assets/profile.jpg missing */
