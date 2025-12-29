@@ -3,22 +3,18 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Dheeraj Kumar Singh — Nested Sections (Single Page)</title>
-<meta name="description" content="Single-page site with nested sections for Research, Teaching, The Oxford Union, Contact. Uses assets/profile.jpg for the profile image."/>
+<title>Dheeraj Kumar Singh — SPA (one section at a time)</title>
+<meta name="description" content="Single-page SPA with nested subsections; shows only one main section at a time. Image loads from assets/profile.jpg"/>
 <style>
-  :root{
-    --accent:#1f6feb; --muted:#666; --bg:#fbfbfb; --card:#fff; --maxw:1100px;
-    font-family: Inter, "Helvetica Neue", Arial, sans-serif;
-  }
+  :root{--accent:#1f6feb;--muted:#666;--bg:#fbfbfb;--card:#fff;--maxw:1100px;font-family:Inter,Arial,Helvetica,sans-serif}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:#111;line-height:1.5}
-  header{background:#fff;border-bottom:1px solid #eee;position:sticky;top:0;z-index:30}
+  header{background:#fff;border-bottom:1px solid #eee;position:sticky;top:0;z-index:40}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:12px 18px}
-  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .topbar{display:flex;align-items:center;justify-content:space-between}
   .brand{font-weight:700}
-  nav a{margin-left:14px;text-decoration:none;color:inherit;font-weight:600}
+  nav a{margin-left:14px;text-decoration:none;color:inherit;font-weight:600;cursor:pointer}
   .page{display:grid;grid-template-columns:260px 1fr;gap:22px;max-width:var(--maxw);margin:18px auto;padding:0 18px 80px}
-  /* Left profile pane */
   .left{position:relative}
   .sticky{position:sticky;top:74px}
   .profile-card{background:var(--card);padding:18px;border-radius:10px;box-shadow:0 10px 30px rgba(20,20,20,0.04);text-align:center}
@@ -27,21 +23,18 @@
   .meta-compact{color:var(--muted);font-size:14px;margin-top:6px}
   .quick-links{margin-top:12px;font-size:14px}
   .quick-links a{display:block;color:var(--accent);text-decoration:none;margin:6px 0}
-  /* Main content */
   main{min-height:400px}
   .section{background:var(--card);padding:18px;border-radius:10px;box-shadow:0 10px 30px rgba(20,20,20,0.04);margin-bottom:18px}
-  .section + .section{margin-top:12px}
+  .hidden{display:none !important}
   .section-header{display:flex;justify-content:space-between;align-items:center;gap:12px}
   .section-header h2{margin:0;font-size:18px}
   .subnav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
   .subnav button{background:transparent;border:1px solid #e6e6e6;padding:8px 10px;border-radius:8px;cursor:pointer}
   .subnav button.active{border-color:var(--accent);color:var(--accent);font-weight:700}
   .subsection{margin-top:14px;padding:12px;border-radius:8px;border:1px solid #f0f0f0;background:#fff}
-  .subsection.hidden{display:none}
   .muted{color:var(--muted)}
   a{color:var(--accent)}
   footer{padding:18px;border-top:1px solid #eee;text-align:center;color:var(--muted);margin-top:28px}
-  /* Responsive */
   @media (max-width:900px){
     .page{grid-template-columns:1fr; padding:0 12px}
     .sticky{position:static}
@@ -54,32 +47,32 @@
     <div class="wrap topbar" role="banner">
       <div class="brand">Dheeraj Kumar Singh</div>
       <nav aria-label="Main navigation">
-        <a href="#home" data-target="home">Home</a>
-        <a href="#research" data-target="research">Research</a>
-        <a href="#teaching" data-target="teaching">Teaching</a>
-        <a href="#oxford" data-target="oxford">The Oxford Union</a>
-        <a href="#contact" data-target="contact">Contact</a>
+        <!-- data-section attribute maps to the section id below -->
+        <a data-section="home">Home</a>
+        <a data-section="research">Research</a>
+        <a data-section="teaching">Teaching</a>
+        <a data-section="oxford">The Oxford Union</a>
+        <a data-section="contact">Contact</a>
       </nav>
     </div>
   </header>
 
   <div class="page" role="main">
-    <!-- LEFT: Profile -->
+    <!-- LEFT PROFILE -->
     <aside class="left" aria-label="Profile column">
       <div class="sticky">
         <div class="profile-card" role="region" aria-labelledby="profile-name">
           <div class="avatar" aria-hidden="false">
-            <!-- Use asset file -->
-            <img src="assets/profile.jpg" alt="Dheeraj Kumar Singh">
+            <img id="profile-img" src="assets/profile.jpg" alt="Dheeraj Kumar Singh">
           </div>
           <div id="profile-name" style="font-weight:700">Dheeraj Kumar Singh</div>
           <div class="meta-compact">Graduate Student — Economics<br>University of Oxford</div>
 
           <div class="quick-links" aria-hidden="false">
-            <a href="#research" data-target="research">Research</a>
-            <a href="#teaching" data-target="teaching">Teaching</a>
-            <a href="#oxford" data-target="oxford">The Oxford Union</a>
-            <a href="#contact" data-target="contact">Contact / CV</a>
+            <a data-section="research">Research</a>
+            <a data-section="teaching">Teaching</a>
+            <a data-section="oxford">The Oxford Union</a>
+            <a data-section="contact">Contact / CV</a>
           </div>
 
           <div style="margin-top:12px;font-size:13px;color:var(--muted)">
@@ -90,23 +83,17 @@
       </div>
     </aside>
 
-    <!-- CENTER: All nested sections here -->
+    <!-- CENTER: ONE main section visible at a time -->
     <main class="center">
-      <!-- HOME / HUB -->
+      <!-- HOME -->
       <section id="home" class="section" data-section>
-        <div class="section-header">
-          <h2>Home</h2>
-          <div class="muted">Welcome — use the menu to explore nested subsections</div>
-        </div>
+        <div class="section-header"><h2>Home</h2><div class="muted">Welcome — click nav to open a section</div></div>
         <p class="muted" style="margin-top:12px">I am a graduate economist working on microeconomic theory, game theory, and information design. Use the subsections inside each main section for publications, projects, talks, etc.</p>
       </section>
 
-      <!-- RESEARCH: has nested Publications, Projects -->
-      <section id="research" class="section" data-section>
-        <div class="section-header">
-          <h2>Research</h2>
-          <div class="muted">Overview & nested subsections</div>
-        </div>
+      <!-- RESEARCH -->
+      <section id="research" class="section hidden" data-section>
+        <div class="section-header"><h2>Research</h2><div class="muted">Overview & nested subsections</div></div>
 
         <div class="subnav" role="tablist" aria-label="Research subsections">
           <button data-parent="research" data-sub="overview" class="active">Overview</button>
@@ -120,29 +107,21 @@
         </div>
 
         <div id="research:publications" class="subsection hidden" data-parent="research" data-name="publications">
-          <h3 style="margin-top:0">Publications & working papers</h3>
+          <h3 style="margin-top:0">Publications</h3>
           <ol>
             <li><strong>Working paper title</strong> — short note. <a href="#">PDF</a></li>
-            <li><strong>Paper title</strong> — journal / status</li>
           </ol>
         </div>
 
         <div id="research:projects" class="subsection hidden" data-parent="research" data-name="projects">
           <h3 style="margin-top:0">Projects</h3>
-          <ul>
-            <li><strong>Project A</strong> — short description, links.</li>
-            <li><strong>Project B</strong> — short description, links.</li>
-          </ul>
+          <ul><li>Project A — short description</li></ul>
         </div>
       </section>
 
-      <!-- TEACHING: nested Tutorials, Grading -->
-      <section id="teaching" class="section" data-section>
-        <div class="section-header">
-          <h2>Teaching</h2>
-          <div class="muted">Tutorials, Grading, TA roles</div>
-        </div>
-
+      <!-- TEACHING -->
+      <section id="teaching" class="section hidden" data-section>
+        <div class="section-header"><h2>Teaching</h2><div class="muted">Tutorials, Grading, TA roles</div></div>
         <div class="subnav" role="tablist" aria-label="Teaching subsections">
           <button data-parent="teaching" data-sub="overview" class="active">Overview</button>
           <button data-parent="teaching" data-sub="tutorials">Tutorials</button>
@@ -156,28 +135,18 @@
 
         <div id="teaching:tutorials" class="subsection hidden" data-parent="teaching" data-name="tutorials">
           <h3 style="margin-top:0">Tutorials</h3>
-          <ul>
-            <li>Core Microeconomics (HT 2025) — tutorials on equilibrium and strategic interaction.</li>
-            <li>Economics of Industry (MT 2024) — problem sets and office hours.</li>
-          </ul>
+          <ul><li>Core Microeconomics (HT 2025)</li></ul>
         </div>
 
         <div id="teaching:grading" class="subsection hidden" data-parent="teaching" data-name="grading">
           <h3 style="margin-top:0">Grading & TA</h3>
-          <ul>
-            <li>Grader — Core Microeconomics (MT 2024), Core Macroeconomics (HT 2025)</li>
-            <li>Graduate TA — Imperial College, Computational Linear Algebra (2021)</li>
-          </ul>
+          <ul><li>Grader — Core Microeconomics (MT 2024)</li></ul>
         </div>
       </section>
 
-      <!-- OXFORD: nested Events, Committee -->
-      <section id="oxford" class="section" data-section>
-        <div class="section-header">
-          <h2>The Oxford Union</h2>
-          <div class="muted">Events, talks, committee roles</div>
-        </div>
-
+      <!-- OXFORD -->
+      <section id="oxford" class="section hidden" data-section>
+        <div class="section-header"><h2>The Oxford Union</h2><div class="muted">Events, talks, committee roles</div></div>
         <div class="subnav" role="tablist" aria-label="Oxford subsections">
           <button data-parent="oxford" data-sub="overview" class="active">Overview</button>
           <button data-parent="oxford" data-sub="events">Events</button>
@@ -185,31 +154,21 @@
         </div>
 
         <div id="oxford:overview" class="subsection" data-parent="oxford" data-name="overview">
-          <h3 style="margin-top:0">Overview</h3>
-          <p class="muted">Notes and involvement with Union activities.</p>
+          <h3 style="margin-top:0">Overview</h3><p class="muted">Notes and involvement with Union activities.</p>
         </div>
 
         <div id="oxford:events" class="subsection hidden" data-parent="oxford" data-name="events">
-          <h3 style="margin-top:0">Events</h3>
-          <ul>
-            <li>Talk: Example Speaker — Date — Short note.</li>
-            <li>Panel: Topic — Date — Short note.</li>
-          </ul>
+          <h3 style="margin-top:0">Events</h3><ul><li>Example event — Date</li></ul>
         </div>
 
         <div id="oxford:committee" class="subsection hidden" data-parent="oxford" data-name="committee">
-          <h3 style="margin-top:0">Committee roles</h3>
-          <p>Details about roles, if applicable.</p>
+          <h3 style="margin-top:0">Committee</h3><p>Role details</p>
         </div>
       </section>
 
       <!-- CONTACT -->
-      <section id="contact" class="section" data-section>
-        <div class="section-header">
-          <h2>Contact & CV</h2>
-          <div class="muted">Email, phone, CV download</div>
-        </div>
-
+      <section id="contact" class="section hidden" data-section>
+        <div class="section-header"><h2>Contact</h2><div class="muted">Email, phone, CV</div></div>
         <div class="subnav" role="tablist" aria-label="Contact subsections">
           <button data-parent="contact" data-sub="info" class="active">Info</button>
           <button data-parent="contact" data-sub="cv">CV (PDF)</button>
@@ -219,118 +178,121 @@
         <div id="contact:info" class="subsection" data-parent="contact" data-name="info">
           <h3 style="margin-top:0">Contact</h3>
           <p><strong>Email:</strong> <a href="mailto:dheeraj.singh@economics.ox.ac.uk">dheeraj.singh@economics.ox.ac.uk</a></p>
-          <p><strong>Phone:</strong> <a href="tel:+447534581605">+44 7534 581605</a></p>
         </div>
 
         <div id="contact:cv" class="subsection hidden" data-parent="contact" data-name="cv">
           <h3 style="margin-top:0">CV</h3>
-          <p><a href="My_CV__Tentative___Copy_.pdf" target="_blank" rel="noopener">Download full CV (PDF)</a></p>
+          <p><a href="My_CV__Tentative___Copy_.pdf" target="_blank" rel="noopener">Download CV (PDF)</a></p>
         </div>
 
         <div id="contact:links" class="subsection hidden" data-parent="contact" data-name="links">
-          <h3 style="margin-top:0">Links</h3>
-          <ul>
-            <li><a href="https://github.com/realdksingh" target="_blank" rel="noopener">GitHub</a></li>
-          </ul>
+          <h3 style="margin-top:0">Links</h3><ul><li><a href="https://github.com/realdksingh" target="_blank" rel="noopener">GitHub</a></li></ul>
         </div>
       </section>
-
     </main>
   </div>
 
-  <footer>
-    © <span id="year"></span> Dheeraj Kumar Singh
-  </footer>
+  <footer>© <span id="year"></span> Dheeraj Kumar Singh</footer>
 
 <script>
-/* ---------- Utilities for nested subsections and deep-linking ---------- */
+/* --- SPA helpers: show ONE main section at a time; nested subsection handling + deep links --- */
 
-// show a particular subsection: parent = e.g. "research", name = e.g. "publications"
-function showSubsection(parent, name, pushState=true){
-  // hide all subsections for this parent
-  document.querySelectorAll('[data-parent="'+parent+'"]').forEach(el=>{
-    if(el.dataset.name){
-      el.classList.add('hidden');
-    }
-  });
-  // remove active from sibling buttons
-  document.querySelectorAll('button[data-parent="'+parent+'"]').forEach(b=>b.classList.remove('active'));
-  // show selected
-  const id = parent + ':' + name;
+const sections = Array.from(document.querySelectorAll('[data-section]'));
+function showMainSection(id, push=true){
+  sections.forEach(s => s.classList.add('hidden'));
   const el = document.getElementById(id);
-  if(el) el.classList.remove('hidden');
-  // activate corresponding button
+  if(!el) return;
+  el.classList.remove('hidden');
+
+  // open default nested subsection for that section (first button), if any
+  const firstBtn = el.querySelector('button[data-parent]');
+  if(firstBtn){
+    // simulate showing its subsection
+    const parent = firstBtn.dataset.parent;
+    const sub = firstBtn.dataset.sub;
+    showSubsection(parent, sub, false);
+  }
+
+  // update URL hash
+  if(push){
+    history.replaceState(null,'','#' + id);
+  }
+  // scroll top of visible section into view
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// subsections (same behavior as before)
+function showSubsection(parent, name, push=true){
+  document.querySelectorAll('[data-parent="'+parent+'"]').forEach(el=>{
+    if(el.dataset.name) el.classList.add('hidden');
+  });
+  document.querySelectorAll('button[data-parent="'+parent+'"]').forEach(b=>b.classList.remove('active'));
+  const sel = document.getElementById(parent+':'+name);
+  if(sel) sel.classList.remove('hidden');
   const btn = document.querySelector('button[data-parent="'+parent+'"][data-sub="'+name+'"]');
   if(btn) btn.classList.add('active');
-  // update URL hash: #parent/name
-  if(pushState){
-    const newHash = '#'+parent+'/'+name;
-    history.replaceState(null, '', newHash);
+  if(push){
+    history.replaceState(null,'','#'+parent+'/'+name);
   }
-  // scroll parent section into view for clarity
-  const parentSection = document.getElementById(parent);
-  if(parentSection) parentSection.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-// initialize: wire up subnav buttons
-document.querySelectorAll('button[data-parent]').forEach(btn=>{
-  btn.addEventListener('click', (e)=>{
-    const parent = btn.dataset.parent;
-    const name   = btn.dataset.sub;
-    showSubsection(parent, name);
-  });
-});
-
-// top nav links: scroll to section (and open default subsection)
-document.querySelectorAll('a[data-target]').forEach(a=>{
-  a.addEventListener('click', (e)=>{
-    // allow normal anchor if user ctrl/cmd clicks
-    if(e.metaKey||e.ctrlKey) return;
+// wire top nav and left links
+document.querySelectorAll('a[data-section]').forEach(a=>{
+  a.addEventListener('click', e=>{
     e.preventDefault();
-    const target = a.dataset.target;
-    // show the target section's default subsection (first subnav button)
-    const firstBtn = document.querySelector('button[data-parent="'+target+'"]');
-    if(firstBtn){
-      const sub = firstBtn.dataset.sub;
-      showSubsection(target, sub, true);
-    } else {
-      // if no subnav, just scroll
-      const el = document.getElementById(target);
-      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
-      history.replaceState(null,'','#'+target);
-    }
+    const sec = a.dataset.section;
+    showMainSection(sec);
+  });
+});
+document.querySelectorAll('[data-section]').forEach(el=>{
+  el.addEventListener('click', e=>{
+    // allow ctrl/cmd open in new tab
+    if(e.metaKey||e.ctrlKey) return;
   });
 });
 
-// on load: parse hash like #research/publications or #research/publications
+// wire subnav buttons
+document.querySelectorAll('button[data-parent]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const parent = btn.dataset.parent;
+    const sub = btn.dataset.sub;
+    showSubsection(parent, sub);
+  });
+});
+
+// handle on-load hash values: #section or #section/sub
 function handleHash(){
-  const raw = location.hash || '#home';
-  // accept forms: #parent/sub or #parent/subname or #parent/subname/...
-  const parts = raw.replace('#','').split('/');
-  const parent = parts[0] || 'home';
+  const raw = location.hash.replace('#','');
+  if(!raw) { showMainSection('home', false); return; }
+  const parts = raw.split('/');
+  const sec = parts[0];
   const sub = parts[1] || null;
 
-  // if home, scroll to top
-  if(parent === 'home'){
-    const el = document.getElementById('home');
-    if(el) el.scrollIntoView();
-    return;
-  }
-
-  // if there is a sub -> show it, else show default (first button)
-  const firstBtn = document.querySelector('button[data-parent="'+parent+'"]');
-  if(sub){
-    showSubsection(parent, sub, false);
-  } else if(firstBtn){
-    showSubsection(parent, firstBtn.dataset.sub, false);
+  // if section exists, show it
+  if(document.getElementById(sec)){
+    showMainSection(sec, false);
+    if(sub){
+      // attempt to show subsection
+      const btn = document.querySelector('button[data-parent="'+sec+'"][data-sub="'+sub+'"]');
+      if(btn) showSubsection(sec, sub, false);
+    }
   } else {
-    // no subnav, scroll to parent section
-    const el = document.getElementById(parent);
-    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    // fallback to home
+    showMainSection('home', false);
   }
 }
 
-// listen for hash changes (user pastes link or back/forward)
+// image load error fallback
+const profileImg = document.getElementById('profile-img');
+profileImg.addEventListener('error', ()=> {
+  console.error('Profile image failed to load: assets/profile.jpg — make sure the file exists and is named exactly assets/profile.jpg (case-sensitive).');
+  // fallback placeholder
+  profileImg.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280"><rect fill="#ddd" width="100%" height="100%"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="20" fill="#777">No image</text></svg>'
+  );
+});
+
+// init
 window.addEventListener('hashchange', handleHash);
 window.addEventListener('load', ()=>{
   document.getElementById('year').textContent = new Date().getFullYear();
