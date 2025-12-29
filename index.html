@@ -1,302 +1,361 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Dheeraj Kumar Singh — SPA (one section at a time)</title>
-<meta name="description" content="Single-page SPA with nested subsections; shows only one main section at a time. Image loads from assets/profile.jpg"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dheeraj Kumar Singh</title>
+
+<!-- FAVICON: DS white on green circle -->
+<link rel="icon" href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+<circle cx='50' cy='50' r='50' fill='%231f7a4f'/>
+<text x='50%' y='58%' text-anchor='middle' fill='white' font-size='38' font-family='Georgia'>DS</text>
+</svg>">
+
 <style>
-  :root{--accent:#1f6feb;--muted:#666;--bg:#fbfbfb;--card:#fff;--maxw:1100px;font-family:Inter,Arial,Helvetica,sans-serif}
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:#111;line-height:1.5}
-  header{background:#fff;border-bottom:1px solid #eee;position:sticky;top:0;z-index:40}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:12px 18px}
-  .topbar{display:flex;align-items:center;justify-content:space-between}
-  .brand{font-weight:700}
-  nav a{margin-left:14px;text-decoration:none;color:inherit;font-weight:600;cursor:pointer}
-  .page{display:grid;grid-template-columns:260px 1fr;gap:22px;max-width:var(--maxw);margin:18px auto;padding:0 18px 80px}
-  .left{position:relative}
-  .sticky{position:sticky;top:74px}
-  .profile-card{background:var(--card);padding:18px;border-radius:10px;box-shadow:0 10px 30px rgba(20,20,20,0.04);text-align:center}
-  .avatar{width:140px;height:140px;border-radius:50%;overflow:hidden;margin:0 auto 12px;background:#ddd}
-  .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-  .meta-compact{color:var(--muted);font-size:14px;margin-top:6px}
-  .quick-links{margin-top:12px;font-size:14px}
-  .quick-links a{display:block;color:var(--accent);text-decoration:none;margin:6px 0}
-  main{min-height:400px}
-  .section{background:var(--card);padding:18px;border-radius:10px;box-shadow:0 10px 30px rgba(20,20,20,0.04);margin-bottom:18px}
-  .hidden{display:none !important}
-  .section-header{display:flex;justify-content:space-between;align-items:center;gap:12px}
-  .section-header h2{margin:0;font-size:18px}
-  .subnav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
-  .subnav button{background:transparent;border:1px solid #e6e6e6;padding:8px 10px;border-radius:8px;cursor:pointer}
-  .subnav button.active{border-color:var(--accent);color:var(--accent);font-weight:700}
-  .subsection{margin-top:14px;padding:12px;border-radius:8px;border:1px solid #f0f0f0;background:#fff}
-  .muted{color:var(--muted)}
-  a{color:var(--accent)}
-  footer{padding:18px;border-top:1px solid #eee;text-align:center;color:var(--muted);margin-top:28px}
-  @media (max-width:900px){
-    .page{grid-template-columns:1fr; padding:0 12px}
-    .sticky{position:static}
-    .avatar{width:110px;height:110px}
-  }
+/* ================= GLOBAL ================= */
+body {
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #222;
+}
+
+/* Background banner */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255,255,255,0.90),
+                    rgba(255,255,255,0.90)),
+    url("assets/banner.jpg") center / cover no-repeat;
+  z-index: -2;
+}
+
+/* ================= LAYOUT ================= */
+.wrapper {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  max-width: 1200px;
+  margin: 70px auto;
+  padding: 0 24px;
+  gap: 60px;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+  position: sticky;
+  top: 40px;
+  background: transparent;
+  padding: 10px 0;
+}
+
+.avatar {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 18px;
+  border: 2px solid #eee;
+}
+
+.sidebar h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.6em;
+  margin: 0 0 6px 0;
+}
+
+.sidebar .role {
+  font-size: 0.95em;
+  color: #555;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin-bottom: 8px;
+  font-size: 0.9em;
+}
+
+.sidebar a {
+  color: #1f4ed8;
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}
+
+/* ================= MAIN ================= */
+main {
+  background: rgba(255,255,255,0.96);
+  padding: 40px 52px;
+  border-radius: 6px;
+}
+
+/* ================= NAV ================= */
+nav {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 36px;
+  padding-bottom: 10px;
+}
+
+nav a {
+  margin-right: 22px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.95em;
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+nav a.active {
+  font-weight: 600;
+  border-bottom: 2px solid #333;
+  padding-bottom: 2px;
+}
+
+/* ================= CONTENT ================= */
+section {
+  display: none;
+  max-width: 780px;
+}
+
+section.active {
+  display: block;
+}
+
+h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.45em;
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  margin-top: 26px;
+  margin-bottom: 6px;
+}
+
+p {
+  line-height: 1.65;
+}
+
+.meta {
+  font-style: italic;
+  color: #555;
+  font-size: 0.95em;
+  margin-bottom: 8px;
+}
+
+ul li {
+  margin-bottom: 6px;
+}
+
+footer {
+  margin-top: 80px;
+  font-size: 0.85em;
+  color: #777;
+}
+
+/* ===== IMAGE GALLERY (optional) ===== */
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 22px;
+  margin-top: 30px;
+  align-items: start;
+}
+
+.gallery figure { margin: 0; text-align: center; }
+
+.gallery img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.gallery figcaption {
+  margin-top: 8px;
+  font-size: 0.85em;
+  color: #555;
+  line-height: 1.35;
+}
+
+/* Mobile-friendly */
+@media (max-width: 900px) {
+  .gallery { grid-template-columns: 1fr; }
+  .avatar { width: 120px; height: 120px; }
+  .wrapper { grid-template-columns: 1fr; padding: 18px; gap: 24px; margin: 30px auto; }
+  main { padding: 24px; }
+}
 </style>
 </head>
+
 <body>
-  <header>
-    <div class="wrap topbar" role="banner">
-      <div class="brand">Dheeraj Kumar Singh</div>
-      <nav aria-label="Main navigation">
-        <!-- data-section attribute maps to the section id below -->
-        <a data-section="home">Home</a>
-        <a data-section="research">Research</a>
-        <a data-section="teaching">Teaching</a>
-        <a data-section="oxford">The Oxford Union</a>
-        <a data-section="contact">Contact</a>
-      </nav>
+<div class="wrapper">
+
+  <!-- ========== SIDEBAR ========== -->
+  <aside class="sidebar">
+    <img src="assets/profile.jpg" alt="Dheeraj Kumar Singh" class="avatar" id="profile-img">
+
+    <h1>Dheeraj Kumar Singh</h1>
+
+    <div class="role">
+      Ph.D. Candidate — Management Science & Information Technology<br>
+      Massachusetts Institute of Technology (Sloan)
     </div>
-  </header>
 
-  <div class="page" role="main">
-    <!-- LEFT PROFILE -->
-    <aside class="left" aria-label="Profile column">
-      <div class="sticky">
-        <div class="profile-card" role="region" aria-labelledby="profile-name">
-          <div class="avatar" aria-hidden="false">
-            <img id="profile-img" src="assets/profile.jpg" alt="Dheeraj Kumar Singh">
-          </div>
-          <div id="profile-name" style="font-weight:700">Dheeraj Kumar Singh</div>
-          <div class="meta-compact">Graduate Student — Economics<br>University of Oxford</div>
+    <ul>
+      <li>📍 Cambridge, MA (or Oxford/UK as applicable)</li>
+      <li>📧 <a href="mailto:dheeraj.singh@economics.ox.ac.uk">dheeraj.singh@economics.ox.ac.uk</a></li>
+      <li>☎ <a href="tel:+447534581605">+44 7534 581605</a></li>
+      <li>🔗 <a href="https://github.com/realdksingh" target="_blank" rel="noopener">GitHub: realdksingh</a></li>
+      <li>📄 <a href="My_CV__Tentative___Copy_.pdf" target="_blank" rel="noopener">CV (PDF)</a></li>
+    </ul>
+  </aside>
 
-          <div class="quick-links" aria-hidden="false">
-            <a data-section="research">Research</a>
-            <a data-section="teaching">Teaching</a>
-            <a data-section="oxford">The Oxford Union</a>
-            <a data-section="contact">Contact / CV</a>
-          </div>
+  <!-- ========== MAIN ========== -->
+  <main>
+    <nav>
+      <a onclick="showTab('about', this)" class="active">About</a>
+      <a onclick="showTab('research', this)">Research</a>
+      <a onclick="showTab('teaching', this)">Teaching</a>
+      <a onclick="showTab('oxford', this)">The Oxford Union</a>
+      <a onclick="showTab('publications', this)">Publications</a>
+      <a onclick="showTab('awards', this)">Awards</a>
+      <a onclick="showTab('skills', this)">Skills</a>
+      <a onclick="showTab('contact', this)">Contact</a>
+    </nav>
 
-          <div style="margin-top:12px;font-size:13px;color:var(--muted)">
-            <div>Email: <a href="mailto:dheeraj.singh@economics.ox.ac.uk">dheeraj.singh@economics.ox.ac.uk</a></div>
-            <div>GitHub: <a href="https://github.com/realdksingh" target="_blank" rel="noopener">realdksingh</a></div>
-          </div>
-        </div>
+    <section id="about" class="active">
+      <h2>About</h2>
+      <p>
+        I am a researcher working at the intersection of AI, information systems, and market design.
+        My work explores how AI can be used to better understand human decision-making and how economic
+        and information tools can improve market outcomes as AI systems act on behalf of people.
+      </p>
+      <p class="meta">Research supported in part by Emergent Ventures and Schmidt Sciences.</p>
+    </section>
+
+    <section id="research">
+      <h2>Research interests</h2>
+      <p class="muted">AI Behavioral Science · Market Design · Behavioral & Experimental Economics</p>
+
+      <h3>Summary</h3>
+      <p>My research focuses on leveraging AI and economics to study strategic behaviour, information design, and market outcomes.</p>
+
+      <h3>Selected roles</h3>
+      <ul>
+        <li>Research Assistant — Federal Reserve Bank of Chicago (Oct 2021 – Sept 2022)</li>
+        <li>Economic Affairs Intern — United Nations DESA (May 2018 – Dec 2018)</li>
+      </ul>
+    </section>
+
+    <section id="teaching">
+      <h2>Teaching & academic support</h2>
+
+      <h3>College Tutor — University of Oxford</h3>
+      <p class="meta">Core Microeconomics; Economics of Industry — tutorials and problem sets</p>
+
+      <h3>Grader / TA</h3>
+      <ul>
+        <li>Grader — Core Microeconomics (MT 2024), Core Macroeconomics (HT 2025)</li>
+        <li>Graduate TA — Imperial College London, Computational Linear Algebra (2021)</li>
+      </ul>
+    </section>
+
+    <section id="oxford">
+      <h2>The Oxford Union</h2>
+      <p class="meta">Use this section to document talks, committee roles and events</p>
+      <p>Details, event links, minutes or photos can be included here.</p>
+
+      <div class="gallery">
+        <figure>
+          <img src="assets/Policy.jpg" alt="Policy image">
+          <figcaption>Policy engagement (example)</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/logo.jpg" alt="Logo">
+          <figcaption>Group logo</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/Talk.jpg" alt="Talk">
+          <figcaption>Talks and workshops</figcaption>
+        </figure>
       </div>
-    </aside>
+    </section>
 
-    <!-- CENTER: ONE main section visible at a time -->
-    <main class="center">
-      <!-- HOME -->
-      <section id="home" class="section" data-section>
-        <div class="section-header"><h2>Home</h2><div class="muted">Welcome — click nav to open a section</div></div>
-        <p class="muted" style="margin-top:12px">I am a graduate economist working on microeconomic theory, game theory, and information design. Use the subsections inside each main section for publications, projects, talks, etc.</p>
-      </section>
+    <section id="publications">
+      <h2>Publications & writing</h2>
 
-      <!-- RESEARCH -->
-      <section id="research" class="section hidden" data-section>
-        <div class="section-header"><h2>Research</h2><div class="muted">Overview & nested subsections</div></div>
+      <h3>Selected work</h3>
+      <ul>
+        <li><em>Working paper / article title</em> — short note. <a href="#">PDF</a></li>
+      </ul>
 
-        <div class="subnav" role="tablist" aria-label="Research subsections">
-          <button data-parent="research" data-sub="overview" class="active">Overview</button>
-          <button data-parent="research" data-sub="publications">Publications</button>
-          <button data-parent="research" data-sub="projects">Projects</button>
-        </div>
+      <h3>Policy reports & commentary</h3>
+      <ul>
+        <li>Policy report / brief — organisation (year)</li>
+      </ul>
+    </section>
 
-        <div id="research:overview" class="subsection" data-parent="research" data-name="overview">
-          <h3 style="margin-top:0">Overview</h3>
-          <p class="muted">Microeconomic Theory, Game Theory, Information Design. Research focuses on strategic behaviour under asymmetric information, optimal information structures, and dynamic incentive mechanisms.</p>
-        </div>
+    <section id="awards">
+      <h2>Awards & honours</h2>
+      <ul>
+        <li>OUBEP Scholarship / School of Social Science Studentship (examples)</li>
+        <li>Stewart Research Award — Best Honors Thesis (example)</li>
+      </ul>
+    </section>
 
-        <div id="research:publications" class="subsection hidden" data-parent="research" data-name="publications">
-          <h3 style="margin-top:0">Publications</h3>
-          <ol>
-            <li><strong>Working paper title</strong> — short note. <a href="#">PDF</a></li>
-          </ol>
-        </div>
+    <section id="skills">
+      <h2>Skills & interests</h2>
+      <ul>
+        <li><strong>Methods:</strong> Python, R, Econometrics, Experimental Design</li>
+        <li><strong>Interests:</strong> Market design, behavioural experiments, AI + economics</li>
+      </ul>
+    </section>
 
-        <div id="research:projects" class="subsection hidden" data-parent="research" data-name="projects">
-          <h3 style="margin-top:0">Projects</h3>
-          <ul><li>Project A — short description</li></ul>
-        </div>
-      </section>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p><strong>Email:</strong> <a href="mailto:dheeraj.singh@economics.ox.ac.uk">dheeraj.singh@economics.ox.ac.uk</a></p>
+      <p><strong>Phone:</strong> <a href="tel:+447534581605">+44 7534 581605</a></p>
+      <p><strong>CV:</strong> <a href="My_CV__Tentative___Copy_.pdf" target="_blank" rel="noopener">Download CV (PDF)</a></p>
+    </section>
 
-      <!-- TEACHING -->
-      <section id="teaching" class="section hidden" data-section>
-        <div class="section-header"><h2>Teaching</h2><div class="muted">Tutorials, Grading, TA roles</div></div>
-        <div class="subnav" role="tablist" aria-label="Teaching subsections">
-          <button data-parent="teaching" data-sub="overview" class="active">Overview</button>
-          <button data-parent="teaching" data-sub="tutorials">Tutorials</button>
-          <button data-parent="teaching" data-sub="grading">Grading / TA</button>
-        </div>
-
-        <div id="teaching:overview" class="subsection" data-parent="teaching" data-name="overview">
-          <h3 style="margin-top:0">Overview</h3>
-          <p class="muted">College tutoring and course assistance across microeconomics and applied math courses.</p>
-        </div>
-
-        <div id="teaching:tutorials" class="subsection hidden" data-parent="teaching" data-name="tutorials">
-          <h3 style="margin-top:0">Tutorials</h3>
-          <ul><li>Core Microeconomics (HT 2025)</li></ul>
-        </div>
-
-        <div id="teaching:grading" class="subsection hidden" data-parent="teaching" data-name="grading">
-          <h3 style="margin-top:0">Grading & TA</h3>
-          <ul><li>Grader — Core Microeconomics (MT 2024)</li></ul>
-        </div>
-      </section>
-
-      <!-- OXFORD -->
-      <section id="oxford" class="section hidden" data-section>
-        <div class="section-header"><h2>The Oxford Union</h2><div class="muted">Events, talks, committee roles</div></div>
-        <div class="subnav" role="tablist" aria-label="Oxford subsections">
-          <button data-parent="oxford" data-sub="overview" class="active">Overview</button>
-          <button data-parent="oxford" data-sub="events">Events</button>
-          <button data-parent="oxford" data-sub="committee">Committee</button>
-        </div>
-
-        <div id="oxford:overview" class="subsection" data-parent="oxford" data-name="overview">
-          <h3 style="margin-top:0">Overview</h3><p class="muted">Notes and involvement with Union activities.</p>
-        </div>
-
-        <div id="oxford:events" class="subsection hidden" data-parent="oxford" data-name="events">
-          <h3 style="margin-top:0">Events</h3><ul><li>Example event — Date</li></ul>
-        </div>
-
-        <div id="oxford:committee" class="subsection hidden" data-parent="oxford" data-name="committee">
-          <h3 style="margin-top:0">Committee</h3><p>Role details</p>
-        </div>
-      </section>
-
-      <!-- CONTACT -->
-      <section id="contact" class="section hidden" data-section>
-        <div class="section-header"><h2>Contact</h2><div class="muted">Email, phone, CV</div></div>
-        <div class="subnav" role="tablist" aria-label="Contact subsections">
-          <button data-parent="contact" data-sub="info" class="active">Info</button>
-          <button data-parent="contact" data-sub="cv">CV (PDF)</button>
-          <button data-parent="contact" data-sub="links">Links</button>
-        </div>
-
-        <div id="contact:info" class="subsection" data-parent="contact" data-name="info">
-          <h3 style="margin-top:0">Contact</h3>
-          <p><strong>Email:</strong> <a href="mailto:dheeraj.singh@economics.ox.ac.uk">dheeraj.singh@economics.ox.ac.uk</a></p>
-        </div>
-
-        <div id="contact:cv" class="subsection hidden" data-parent="contact" data-name="cv">
-          <h3 style="margin-top:0">CV</h3>
-          <p><a href="My_CV__Tentative___Copy_.pdf" target="_blank" rel="noopener">Download CV (PDF)</a></p>
-        </div>
-
-        <div id="contact:links" class="subsection hidden" data-parent="contact" data-name="links">
-          <h3 style="margin-top:0">Links</h3><ul><li><a href="https://github.com/realdksingh" target="_blank" rel="noopener">GitHub</a></li></ul>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <footer>© <span id="year"></span> Dheeraj Kumar Singh</footer>
+    <footer>© Dheeraj Kumar Singh</footer>
+  </main>
+</div>
 
 <script>
-/* --- SPA helpers: show ONE main section at a time; nested subsection handling + deep links --- */
-
-const sections = Array.from(document.querySelectorAll('[data-section]'));
-function showMainSection(id, push=true){
-  sections.forEach(s => s.classList.add('hidden'));
-  const el = document.getElementById(id);
-  if(!el) return;
-  el.classList.remove('hidden');
-
-  // open default nested subsection for that section (first button), if any
-  const firstBtn = el.querySelector('button[data-parent]');
-  if(firstBtn){
-    // simulate showing its subsection
-    const parent = firstBtn.dataset.parent;
-    const sub = firstBtn.dataset.sub;
-    showSubsection(parent, sub, false);
-  }
-
-  // update URL hash
-  if(push){
-    history.replaceState(null,'','#' + id);
-  }
-  // scroll top of visible section into view
-  el.scrollIntoView({behavior:'smooth', block:'start'});
+/* Simple tab switcher */
+function showTab(id, el) {
+  // remove active from nav links
+  document.querySelectorAll("nav a").forEach(a => a.classList.remove("active"));
+  // hide all sections
+  document.querySelectorAll("main section").forEach(s => s.classList.remove("active"));
+  // activate requested
+  const sec = document.getElementById(id);
+  if (sec) sec.classList.add("active");
+  if (el) el.classList.add("active");
+  // scroll into view on small screens
+  sec && sec.scrollIntoView({behavior: 'smooth', block: 'start'});
 }
 
-// subsections (same behavior as before)
-function showSubsection(parent, name, push=true){
-  document.querySelectorAll('[data-parent="'+parent+'"]').forEach(el=>{
-    if(el.dataset.name) el.classList.add('hidden');
-  });
-  document.querySelectorAll('button[data-parent="'+parent+'"]').forEach(b=>b.classList.remove('active'));
-  const sel = document.getElementById(parent+':'+name);
-  if(sel) sel.classList.remove('hidden');
-  const btn = document.querySelector('button[data-parent="'+parent+'"][data-sub="'+name+'"]');
-  if(btn) btn.classList.add('active');
-  if(push){
-    history.replaceState(null,'','#'+parent+'/'+name);
-  }
-}
-
-// wire top nav and left links
-document.querySelectorAll('a[data-section]').forEach(a=>{
-  a.addEventListener('click', e=>{
-    e.preventDefault();
-    const sec = a.dataset.section;
-    showMainSection(sec);
-  });
-});
-document.querySelectorAll('[data-section]').forEach(el=>{
-  el.addEventListener('click', e=>{
-    // allow ctrl/cmd open in new tab
-    if(e.metaKey||e.ctrlKey) return;
-  });
-});
-
-// wire subnav buttons
-document.querySelectorAll('button[data-parent]').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const parent = btn.dataset.parent;
-    const sub = btn.dataset.sub;
-    showSubsection(parent, sub);
-  });
-});
-
-// handle on-load hash values: #section or #section/sub
-function handleHash(){
-  const raw = location.hash.replace('#','');
-  if(!raw) { showMainSection('home', false); return; }
-  const parts = raw.split('/');
-  const sec = parts[0];
-  const sub = parts[1] || null;
-
-  // if section exists, show it
-  if(document.getElementById(sec)){
-    showMainSection(sec, false);
-    if(sub){
-      // attempt to show subsection
-      const btn = document.querySelector('button[data-parent="'+sec+'"][data-sub="'+sub+'"]');
-      if(btn) showSubsection(sec, sub, false);
-    }
-  } else {
-    // fallback to home
-    showMainSection('home', false);
-  }
-}
-
-// image load error fallback
-const profileImg = document.getElementById('profile-img');
-profileImg.addEventListener('error', ()=> {
-  console.error('Profile image failed to load: assets/profile.jpg — make sure the file exists and is named exactly assets/profile.jpg (case-sensitive).');
-  // fallback placeholder
-  profileImg.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280"><rect fill="#ddd" width="100%" height="100%"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="20" fill="#777">No image</text></svg>'
+/* Image fallback if assets/profile.jpg missing */
+const pimg = document.getElementById('profile-img');
+pimg.addEventListener('error', () => {
+  pimg.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="54%" font-family="Arial" font-size="18" text-anchor="middle" fill="#999">Profile image</text></svg>'
   );
-});
-
-// init
-window.addEventListener('hashchange', handleHash);
-window.addEventListener('load', ()=>{
-  document.getElementById('year').textContent = new Date().getFullYear();
-  handleHash();
+  console.warn('Profile image not found at assets/profile.jpg — upload and name it exactly assets/profile.jpg (case-sensitive).');
 });
 </script>
 </body>
